@@ -1,7 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
 import os
-
-db = SQLAlchemy()
 
 base = os.path.abspath(os.path.dirname(__file__))
 instance = os.path.join(base, './instance')
