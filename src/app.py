@@ -1,13 +1,13 @@
 
 from flask import Flask
-from .config import db
-
+from .extensions import db
+from .config import Config
+from .models import Usuario
+from sqlalchemy import inspect
 
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
-    from .config import Config
     app.config.from_object(Config)
-    from .models import Usuario
     db.init_app(app)
     
     with app.app_context():
