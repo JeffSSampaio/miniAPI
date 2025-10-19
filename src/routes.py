@@ -36,3 +36,12 @@ def update_usuario(id):
     else:
         return jsonify({'message': 'Usuário não encontrado'})
 
+@app.route('/api/usuarios/<int:id>', methods=['DELETE'])
+def delete_usuario(id):
+    usuario = Usuario.query.get(id)
+    if usuario:
+        db.session.delete(usuario)
+        db.session.commit()
+        return jsonify({'id':usuario.id, 'nome': usuario.nome  ,'message': 'Usuário deletado '})
+    else:
+        return jsonify({'message': 'Usuário não encontrado'})
