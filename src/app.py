@@ -1,8 +1,6 @@
 
 from flask import Flask
-
 from .config import db
-
 
 
 def create_app():
@@ -16,7 +14,6 @@ def create_app():
         db.create_all()
 
     return app
-
 
 
 
