@@ -4,10 +4,12 @@ from .extensions import db
 from .config import Config
 from .models import Usuario
 from sqlalchemy import inspect
+from .routes import api as api_routes
 
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(Config)
+    app.register_blueprint(api_routes)
     db.init_app(app)
     return app
 
