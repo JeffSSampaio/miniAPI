@@ -9,11 +9,16 @@ def create_app():
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(Config)
     db.init_app(app)
-    
-    with app.app_context():
-        db.create_all()
-
     return app
+
+app = create_app()
+
+if __name__ == "__main__":
+    with app.app_context():
+        verificar_db = inspect(db.engine)
+        if not verificar_db.get_table_names():
+            db.create_all()
+    app.run(debug=True)
 
 
 
