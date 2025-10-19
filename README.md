@@ -3,24 +3,24 @@
 (Projeto desenvolvido para o TDE - Modulo 1. Organizacao e Versionamento (Mini API em Flask), considerando a estruturacao
 de escalabilidade e suportar evolucao futura com versionamento Git e documentacao clara.
 
-ESTRUTURA DO PROJETO
-miniAPI/
-│
-├── src/
-│   ├── __init__.py
-│   ├── app.py              # factory principal
-│   ├── config.py           # configuração da aplicação e banco
-│   ├── extensions.py       # inicialização do SQLAlchemy
-│   ├── models.py           # modelo Usuario
-│   ├── routes.py           # rotas CRUD
-│   ├── instance/
-│   │   └── api.db          # banco SQLite local
-│   └── __pycache__/        # arquivos compilados (ignorados)
-│
-├── tests/                  # reservado para testes (Módulo 2)
-├── .gitignore
-├── requirements.txt
-└── README.md
+<h1>ESTRUTURA DO PROJETO</h1>
+
+| Pasta / Arquivo        | Descrição                                      |
+|------------------------|------------------------------------------------|
+| `src/`                 | Código-fonte da aplicação                      |
+| `src/__init__.py`      | Inicialização do módulo Python                |
+| `src/app.py`           | Factory principal da aplicação                |
+| `src/config.py`        | Configurações da aplicação e do banco         |
+| `src/extensions.py`    | Inicialização do SQLAlchemy                   |
+| `src/models.py`        | Modelo `Usuario`                              |
+| `src/routes.py`        | Rotas CRUD da API                             |
+| `src/instance/`        | Pasta para arquivos de instância/local        |
+| `src/instance/api.db`  | Banco SQLite local                            |
+| `src/__pycache__/`     | Arquivos compilados (ignorados pelo Git)      |
+| `tests/`               | Testes unitários e de integração             |
+| `.gitignore`           | Arquivos ignorados pelo Git                   |
+| `requirements.txt`     | Dependências do projeto                       |
+| `README.md`            | Documentação do projeto                       |
 
 <h1>INSTALACAO E EXECUCAO LOCAL</h1>
 1. Clonar o repositorio.
@@ -93,5 +93,6 @@ hotfix/*	          correções emergenciais
 
 Licença
 Este projeto é acadêmico e faz parte da avaliação do Módulo 1 — Organização e Versionamento (Mini API em Flask).
+
 
 
