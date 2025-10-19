@@ -24,3 +24,15 @@ def create_usuario():
  db.session.commit()
  return jsonify({f'id': novo_usuario.id, 'nome': novo_usuario.nome, 'email': novo_usuario.email, 'message': 'Usuário criado com sucesso!'})
 
+@app.route('/api/usuarios/<int:id>', methods=['PUT'])
+def update_usuario(id):
+    dados = request.get_json()
+    usuario = Usuario.query.get(id)
+    if usuario:
+        usuario.nome = dados['nome']
+        usuario.email = dados['email']
+        db.session.commit()
+        return jsonify({'id': usuario.id, 'nome': usuario.nome, 'email': usuario.email, 'message': 'Usuário atualizado'})
+    else:
+        return jsonify({'message': 'Usuário não encontrado'})
+
