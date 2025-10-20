@@ -92,5 +92,5 @@ hotfix/*	          correções emergenciais
 * Henrique Augusto Santos Matos augusto.smatos@cest.edu.br
 
 Licença
-Este projeto é acadêmico e faz parte da avaliação do Módulo 1 — Organização e Versionamento (Mini API em Flask).
+Este projeto é acadêmico e faz parte da avaliação do Módulo 1, compoêm 50% da nota— Organização e Versionamento (Mini API em Flask).
 
