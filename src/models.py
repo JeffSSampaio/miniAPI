@@ -1,0 +1,12 @@
+from .extensions import db
+
+class Usuario(db.Model):
+    __tablename__ = 'usuario'
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+
+    def __init__(self, nome, email):
+        self.nome = nome
+        self.email = email
+
