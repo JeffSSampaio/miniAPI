@@ -40,7 +40,7 @@ de escalabilidade e suportar evolucao futura com versionamento Git e documentaca
 
 6. Executar a aplicacao.
    
-       * python src/app.py
+       * python -m src.app
 
 <h1>ENDPOINS OBRIGATORIOS</h1>
 
