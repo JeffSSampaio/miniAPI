@@ -1,4 +1,4 @@
-<h1>- Mini API Flask - Organiza;'ao e Versionamento</h1>
+<h1>- Mini API Flask - Organização e Versionamento</h1>
 
 (Projeto desenvolvido para o TDE - Modulo 1. Organizacao e Versionamento (Mini API em Flask), considerando a estruturacao
 de escalabilidade e suportar evolucao futura com versionamento Git e documentacao clara.
@@ -93,3 +93,4 @@ hotfix/*	          correções emergenciais
 
 Licença
 Este projeto é acadêmico e faz parte da avaliação do Módulo 1 — Organização e Versionamento (Mini API em Flask).
+
