@@ -60,4 +60,4 @@ def delete_usuario(id):
 @api.route('/exchange/usd-to-brl', methods=['GET'])
 def usd_to_brl():
     result = get_usd_to_brl()
-    return jsonify(result)
+    return jsonify(result), (200 if result.get("usd") else 503)
