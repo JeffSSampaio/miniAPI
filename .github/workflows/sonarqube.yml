@@ -26,5 +26,5 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=miniApiProject
-        
+            -Dsonar.projectKey=miniAPI
+            -Dsonar.organization=jeffssampaio
