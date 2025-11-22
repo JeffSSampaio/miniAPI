@@ -1,6 +1,8 @@
 from .models import Usuario
 from flask import request, jsonify , Blueprint
 from .extensions import db
+from src.services.exchange_service import get_usd_to_brl
+
 
 api = Blueprint('api', __name__)
 
@@ -54,3 +56,8 @@ def delete_usuario(id):
         return jsonify(resp)
     else:
         return jsonify({'message': 'Usuário não encontrado'})
+
+@api.route('/exchange/usd-to-brl', methods=['GET'])
+def usd_to_brl():
+    result = get_usd_to_brl()
+    return jsonify(result), (200 if result.get("usd") else 503)
