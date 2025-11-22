@@ -12,3 +12,10 @@ def test_get_usd_to_brl(mock_get):
     result = get_usd_to_brl()
 
     assert result["usd"] == "5.25"
+
+@patch("src.services.exchange_service.requests.get", side_effect=Exception("API error"))
+def test_get_usd_to_brl_error(mock_get):
+    result = get_usd_to_brl()
+
+    assert result["usd"] is None
+    assert "error" in result
