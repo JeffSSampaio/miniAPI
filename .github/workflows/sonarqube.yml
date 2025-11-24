@@ -9,8 +9,12 @@ on:
 jobs:
   sonarcloud:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # Necessário para SonarCloud detectar PR corretamente
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -27,9 +31,15 @@ jobs:
         run: |
           pytest --cov=src --cov-report=xml:coverage.xml
 
-      - name: Fix coverage paths for SonarCloud
+      # Garante que o coverage.xml esteja no diretório raiz acessível ao Sonar
+      - name: Move coverage file to workspace root
+        run: mv coverage.xml $GITHUB_WORKSPACE
+
+      # Remove prefixos de path para que o SonarCloud consiga mapear os arquivos
+      - name: Fix coverage paths
         run: |
-          sed -i 's/\/home\/runner\/work\/miniAPI\/miniAPI\///g' coverage.xml
+          sed -i "s|/home/runner/work/miniAPI/miniAPI/||g" coverage.xml
+          sed -i "s|/github/workspace/||g" coverage.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
@@ -40,7 +50,7 @@ jobs:
           args: >
             -Dsonar.projectKey=miniApiProject
             -Dsonar.organization=jeffssampaio
-            -Dsonar.python.version=3.12
             -Dsonar.sources=src
             -Dsonar.tests=tests
+            -Dsonar.python.version=3.12
             -Dsonar.python.coverage.reportPaths=coverage.xml
