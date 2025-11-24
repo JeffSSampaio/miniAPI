@@ -1,23 +1,16 @@
 name: SonarCloud Analysis
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
-  workflow_dispatch:
-
-permissions:
-  pull-requests: read
+  push:
+    branches:
+      - main
 
 jobs:
   sonarcloud:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -25,10 +18,18 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-cov
 
       - name: Run tests with coverage
-        run: pytest --cov=src --cov-report=xml
+        run: |
+          pytest --cov=src --cov-report=xml:coverage.xml
+
+      - name: Fix coverage paths for SonarCloud
+        run: |
+          sed -i 's/\/home\/runner\/work\/miniAPI\/miniAPI\///g' coverage.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
@@ -37,4 +38,9 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
+            -Dsonar.projectKey=miniApiProject
+            -Dsonar.organization=jeffssampaio
+            -Dsonar.python.version=3.12
+            -Dsonar.sources=src
+            -Dsonar.tests=tests
             -Dsonar.python.coverage.reportPaths=coverage.xml
