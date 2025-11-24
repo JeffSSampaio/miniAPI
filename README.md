@@ -1,96 +1,158 @@
-<h1>- Mini API Flask - Organização e Versionamento</h1>
+<h1>- Mini API Flask - Organização, Versionamento e Qualidade</h1>
 
-(Projeto desenvolvido para o TDE - Modulo 1. Organizacao e Versionamento (Mini API em Flask), considerando a estruturacao
-de escalabilidade e suportar evolucao futura com versionamento Git e documentacao clara.
+Projeto desenvolvido para o TDE dos Módulos 1 e 2, abrangendo:
+- Organização e Versionamento (Mini API em Flask)
+- Estruturação escalável
+- Testes automatizados com mock
+- Cobertura de testes (pytest-cov)
+- Integração com API externa (AwesomeAPI)
+- Análise de qualidade com SonarCloud
+- GitFlow completo com branches, PRs e commits padronizados
 
 <h1>ESTRUTURA DO PROJETO</h1>
 
-| Pasta / Arquivo        | Descrição                                      |
-|------------------------|------------------------------------------------|
-| `src/`                 | Código-fonte da aplicação                      |
-| `src/__init__.py`      | Inicialização do módulo Python                |
-| `src/app.py`           | Factory principal da aplicação                |
-| `src/config.py`        | Configurações da aplicação e do banco         |
-| `src/extensions.py`    | Inicialização do SQLAlchemy                   |
-| `src/models.py`        | Modelo `Usuario`                              |
-| `src/routes.py`        | Rotas CRUD da API                             |
-| `src/instance/`        | Pasta para arquivos de instância/local        |
-| `src/instance/api.db`  | Banco SQLite local                            |
-| `src/__pycache__/`     | Arquivos compilados (ignorados pelo Git)      |
-| `tests/`               | Testes unitários e de integração             |
-| `.gitignore`           | Arquivos ignorados pelo Git                   |
-| `requirements.txt`     | Dependências do projeto                       |
-| `README.md`            | Documentação do projeto                       |
+| Pasta / Arquivo                  | Descrição                                           |
+|----------------------------------|-----------------------------------------------------|
+| `src/`                           | Código-fonte da aplicação                           |
+| `src/__init__.py`                | Inicialização do módulo Python                      |
+| `src/app.py`                     | Factory principal da aplicação                      |
+| `src/config.py`                  | Configurações da aplicação e do banco               |
+| `src/extensions.py`              | Inicialização do SQLAlchemy                         |
+| `src/models.py`                  | Modelo `Usuario`                                    |
+| `src/routes/`                    | Organização das rotas                               |
+| `src/routes/routes.py`           | Rotas CRUD dos usuários                             |
+| `src/routes/exchange_routes.py`  | Endpoint de câmbio (USD → BRL)                      |
+| `src/services/exchange_service.py` | Consumo da AwesomeAPI                             |
+| `src/instance/`                  | Arquivos de instância/local                         |
+| `tests/`                         | Testes unitários e cobertura                        |
+| `coverage.xml`                   | Relatório de cobertura (pytest-cov)                 |
+| `sonar-project.properties`       | Configurações do SonarCloud                         |
+| `.gitignore`                     | Arquivos ignorados pelo Git                         |
+| `requirements.txt`               | Dependências do projeto                             |
+| `README.md`                      | Documentação do projeto                             |
 
-<h1>INSTALACAO E EXECUCAO LOCAL</h1>
-1. Clonar o repositorio.
+<h1>INSTALAÇÃO E EXECUÇÃO LOCAL</h1>
 
-      * git clone <URL_DO_REPOSITORIO>
-         * cd miniAPI
+1. Clonar repositório:
 
-2. Criar e ativar ambiente virtual.
+<pre>
+git clone &lt;URL_DO_REPOSITORIO&gt;
+cd miniAPI
+</pre>
 
-       * python -m venv maquinavirtual
-       * source maquinavirtual/bin/activate   # Linux/Mac
-       * maquinavirtual\Scripts\activate      # Windows
+2. Criar e ativar ambiente virtual:
 
-4. Instalar dependencias.
+<pre>
+python -m venv venv
+venv\Scripts\activate      # Windows
+source venv/bin/activate   # Linux/Mac
+</pre>
 
-       * pip install -r requirements.txt
+3. Instalar dependências:
 
-6. Executar a aplicacao.
-   
-       * python -m src.app
+<pre>
+pip install -r requirements.txt
+</pre>
 
-<h1>ENDPOINS OBRIGATORIOS</h1>
+4. Executar aplicação:
 
-## 🚀 Endpoints Disponíveis
+<pre>
+python -m src.app
+</pre>
 
-| Método | Endpoint               | Descrição                                |
-|--------|------------------------|------------------------------------------|
-| **GET**    | `/api/usuarios/`         | Lista todos os usuários cadastrados      |
-| **POST**   | `/api/usuarios/`         | Cria um novo usuário (`JSON: nome, email`) |
-| **PUT**    | `/api/usuarios/<id>/`    | Atualiza dados de um usuário existente   |
-| **DELETE** | `/api/usuarios/<id>/`    | Remove um usuário                        |
+<h1>ENDPOINTS OBRIGATÓRIOS</h1>
 
+<h2>CRUD de Usuários</h2>
 
-<h1>TECNOLOGIAS UTILIZADAS</h1>
+| Método | Endpoint                 | Descrição                          |
+|--------|---------------------------|------------------------------------|
+| GET    | `/api/usuarios/`         | Lista todos os usuários            |
+| POST   | `/api/usuarios/`         | Cria um novo usuário               |
+| PUT    | `/api/usuarios/<id>/`    | Atualiza dados de um usuário       |
+| DELETE | `/api/usuarios/<id>/`    | Remove um usuário                  |
 
-* Python 3.12
-* Flask 3.1.2
-* Flask-SQLAlchemy 3.1.0
-* Flask-Migrate 4.0.0
-* SQLite (banco local)
+<h2>ENDPOINT DO MÓDULO 2 – API DE CÂMBIO</h2>
 
-<h1>ESTRATEGIA DE VERSIONAMENTO E BRANCHES</h1>
+| Método | Endpoint               | Descrição                                 |
+|--------|------------------------|-------------------------------------------|
+| GET    | `/exchange/usd-to-brl` | Retorna a cotação atual do dólar (USD → BRL) |
 
-Branch	            Função
-main	              versão estável / produção
-develop	            integração de features antes do merge em main
-feature/*	          desenvolvimento de novas funcionalidades
-hotfix/*	          correções emergenciais
+*Implementado utilizando a API externa AwesomeAPI.*
 
-<h1>FLUXO APLICADO</h1>
-* Criada a branch develop a partir de main.
-* Criadas features como feature/create-app, feat/config-db, feature/routes.
-* Cada feature teve commits e PRs abertos e mergeados em develop e, depois, em main.
+<h1>TESTES E COBERTURA (Módulo 2)</h1>
 
-<h1>PRINCIPAIS COMMITS:</h1>
+Teste unitário com **mock da API externa**, conforme exigido:
 
-* feat: criar estrutura inicial do app Flask
-* feat: inicialização do DB, adição do factory do Flask
-* feat: model de usuário criado
-* feat: adicionado requisições GET/POST/PUT/DELETE
-* fix: corrigir imports e inicializar db
-* chore: atualizar .gitignore e remover venv do git
+1. Executar testes:
 
-<h1>AUTORES:</h1>
+<pre>
+pytest -q
+</pre>
 
-* Matheus T. O. da Penha  matheus.penha@cest.edu.br 
-* Meiryelle Gusmão Macedo meiryelle.macedo@cest.edu.br
-* Jefferson Sousa Sampaio Junior jefferson.sampaio@cest.edu.br
-* Henrique Augusto Santos Matos augusto.smatos@cest.edu.br
+2. Gerar relatório de cobertura:
 
-Licença
-Este projeto é acadêmico e faz parte da avaliação do Módulo 1, compoêm 50% da nota— Organização e Versionamento (Mini API em Flask).
+<pre>
+pytest --cov=src --cov-report=xml:coverage.xml
+</pre>
 
+O arquivo `coverage.xml` é utilizado pelo SonarCloud.
+
+<h1>INTEGRAÇÃO COM SONARCLOUD</h1>
+
+Arquivo obrigatório:
+
+<pre>
+sonar-project.properties
+</pre>
+
+Conteúdo:
+
+<pre>
+sonar.projectKey=miniAPI
+sonar.sources=src
+sonar.tests=tests
+sonar.python.coverage.reportPaths=coverage.xml
+</pre>
+
+<h1>ESTRATÉGIA DE VERSIONAMENTO E BRANCHES</h1>
+
+| Branch     | Função                                |
+|------------|----------------------------------------|
+| main       | Versão estável / produção              |
+| develop    | Integração de features                 |
+| feature/*  | Desenvolvimento de novas funcionalidades |
+| fix/*      | Correções                              |
+| hotfix/*   | Correções emergenciais                 |
+
+<h1>FLUXO APLICADO (Módulo 2)</h1>
+
+1. Criada branch da feature:
+
+<pre>
+git checkout -b feature/exchange-api
+</pre>
+
+2. Commits seguindo padrões exigidos:
+
+<pre>
+feat(exchange): add usd-to-brl service and endpoint
+test(exchange): add mocked awesomeapi test
+chore(ci): add sonar properties and coverage
+fix(sonar): correct code smells
+</pre>
+
+3. Abertura de Pull Request:  
+`feature/exchange-api` → `develop`
+
+4. Aplicado o "Loop de Qualidade" até Quality Gate = PASSED.
+
+<h1>AUTORES</h1>
+
+- Matheus T. O. da Penha — matheus.penha@cest.edu.br  
+- Meiryelle Gusmão Macedo — meiryelle.macedo@cest.edu.br  
+- Jefferson Sousa Sampaio Junior — jefferson.sampaio@cest.edu.br  
+- Henrique Augusto Santos Matos — augusto.smatos@cest.edu.br  
+
+<h1>LICENÇA</h1>
+
+Projeto acadêmico — Avaliação dos Módulos 1 e 2 (Mini API Flask + Qualidade + Integração).
