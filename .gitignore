@@ -1,5 +1,31 @@
-# Ignnora arquivos de ambiente virtual com o nome "maquinavirtual"
+# Ambientes virtuais
+venv/
+env/
+.maquinavirtual/
 maquinavirtual/
 
+# Pycache
 __pycache__/
+*/__pycache__/
 
+# Arquivos do Coverage
+.coverage
+coverage.xml
+htmlcov/
+
+# Banco SQLite local
+*.db
+
+# VSCode
+.vscode/
+
+# Arquivos temporários do pytest
+.pytest_cache/
+
+# Builds Python
+build/
+dist/
+*.egg-info/
+
+# Sonar Scanner
+.scannerwork/
